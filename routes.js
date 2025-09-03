@@ -1,14 +1,14 @@
 const express = require("express");
-const User = require('./user');
+const User = require('./models/user');
 
 const router = express.Router();
 
 // Create a new user
 router.post('/users', async (req, res) => {
-  const { name, email, age } = req.body;
+  const { name, email, dob, credit_scores} = req.body;
 
   try {
-    const user = new User({ name, email, age });
+    const user = new User({ name, email, dob,credit_scores });
     await user.save();
     res.send(user);
   } catch (error) {
@@ -31,10 +31,10 @@ router.get('/users', async (req, res) => {
 // Update a user
 router.put('/users/:id', async (req, res) => {
   const { id } = req.params;
-  const { name, email, age } = req.body;
+  const { name, email, dob, credit_scores } = req.body;
 
   try {
-    const user = await User.findByIdAndUpdate(id, { name, email, age }, { new: true });
+    const user = await User.findByIdAndUpdate(id, { name, email, dob, credit_scores }, { new: true });
     res.send(user);
   } catch (error) {
     console.error(error);
