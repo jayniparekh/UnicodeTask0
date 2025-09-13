@@ -2,6 +2,8 @@ const express = require("express");
 const { StatusCodes, getReasonPhrase } = require("http-status-codes");
 const app= express();
 const morgan = require("morgan");
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy
 
 app.use(morgan("tiny"));
 

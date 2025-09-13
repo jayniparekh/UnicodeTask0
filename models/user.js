@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema(
   {
@@ -11,6 +12,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
       lowercase: true
+    },
+    passwordHash: {
+      type: String,
+      required: true
     },
     dob: {
       type: Date,
@@ -26,4 +31,12 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+// Instance method: compare plaintext password with stored hash
+userSchema.methods.isPasswordValid = async function(plainPassword) {
+  if (!this.passwordHash) return false;
+  return bcrypt.compare(plainPassword, this.passwordHash);
+};
+
+
 const User = mongoose.model('User', userSchema);
+module.exports = User
