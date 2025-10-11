@@ -1,18 +1,15 @@
-const jwt = require('jsonwebtoken');
-
-const ACCESS_TOKEN_TTL = process.env.ACCESS_TOKEN_TTL || '5m';
-const REFRESH_TOKEN_TTL = process.env.REFRESH_TOKEN_TTL || '3d';
+import jwt from 'jsonwebtoken';
 
 const signAccessToken = (payload) => {
   console.log('JWT_ACCESS_SECRET:', process.env.JWT_ACCESS_SECRET);
   if (!process.env.JWT_ACCESS_SECRET) {
     throw new Error('JWT_ACCESS_SECRET is not defined in environment variables');
   }
-  return jwt.sign(payload, process.env.JWT_ACCESS_SECRET, { expiresIn: ACCESS_TOKEN_TTL });
+  return jwt.sign(payload, process.env.JWT_ACCESS_SECRET, { expiresIn: "1d" });
 };
 
 const signRefreshToken = (payload) => {
-  return jwt.sign(payload, process.env.JWT_REFRESH_SECRET, { expiresIn: REFRESH_TOKEN_TTL });
+  return jwt.sign(payload, process.env.JWT_REFRESH_SECRET, { expiresIn: "7d" });
 };
 
 const verifyAccessToken = (token) => jwt.verify(token, process.env.JWT_ACCESS_SECRET);
@@ -59,7 +56,7 @@ const clearRefreshTokenCookie = (res) => {
   });
 };
 
-module.exports = {
+export{
   signAccessToken,
   signRefreshToken,
   verifyAccessToken,

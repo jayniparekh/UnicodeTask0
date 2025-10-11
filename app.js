@@ -1,11 +1,14 @@
-require('dotenv').config();
-console.log('Environment variables loaded:', {
-  JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,
-  JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
-  NODE_ENV: process.env.NODE_ENV,
-  PORT: process.env.PORT
-});
+require('dotenv').config(); 
+// const connectDB = require("./db");
+// connectDB();
+// console.log('Environment variables loaded:', {
+//   JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,
+//   JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
+//   NODE_ENV: process.env.NODE_ENV,
+//   PORT: process.env.PORT
+// });
 const express = require('express');
+
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -30,8 +33,3 @@ const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
 app.use(limiter);
 
 app.use('/', routes);
-
-
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
-});
