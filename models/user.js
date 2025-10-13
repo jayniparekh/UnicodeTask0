@@ -15,7 +15,8 @@ const userSchema = new mongoose.Schema(
     },
     passwordHash: {
       type: String,
-      required: true
+      required: true,
+      minlength: 8,
     },
     dob: {
       type: Date,
@@ -24,6 +25,10 @@ const userSchema = new mongoose.Schema(
     credit_scores: {
       type: Number,
       default: 0
+    },
+    profile_image: {
+        type: String,
+        default: null
     }
   },
   {
