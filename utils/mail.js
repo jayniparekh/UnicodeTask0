@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const mail = async (to, subject, msg) => {
+export const sendMail = async (to, subject, msg) => {
   try {
     const info = await transporter.sendMail({
       from: `Unicode Mentee <${process.env.SMTP_USER}>`,
@@ -28,4 +28,4 @@ const mail = async (to, subject, msg) => {
 };
 
 
-export default mail;
+export default sendMail;
